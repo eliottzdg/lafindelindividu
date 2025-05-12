@@ -51,7 +51,6 @@
       box-shadow: 0 0 20px #0ff;
       z-index: 2;
       border-radius: 12px;
-      font-family: 'Orbitron', sans-serif;
     }
 
     .cookie-modal h2 {
@@ -84,7 +83,6 @@
     }
 
     .main-content {
-      display: none;
       position: absolute;
       bottom: 2rem;
       left: 50%;
@@ -94,8 +92,14 @@
       color: #0ff;
       text-shadow: 0 0 8px #0ff;
       font-family: 'Orbitron', sans-serif;
+
+      /* Initial hidden state */
+      visibility: hidden;
       opacity: 0;
-      transform: translate(-50%, 20px);
+    }
+
+    .main-content.show {
+      visibility: visible;
       animation: fadeInUp 1s ease-out forwards;
     }
 
@@ -169,12 +173,7 @@
   <script>
     function acceptCookies() {
       document.getElementById('cookieModal').style.display = 'none';
-      const content = document.getElementById('mainContent');
-      content.style.display = 'block';
-
-      // Force restart animation in case of re-entry
-      void content.offsetWidth;
-      content.style.animation = 'fadeInUp 1s ease-out forwards';
+      document.getElementById('mainContent').classList.add('show');
     }
   </script>
 </body>
