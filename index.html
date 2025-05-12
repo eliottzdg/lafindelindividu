@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La fin de l'individu</title>
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-
-  <!-- CSS Inline Style -->
   <style>
     * {
       margin: 0;
@@ -16,41 +12,28 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Orbitron', sans-serif;
+    html, body {
       height: 100%;
-      background-color: #000;
-      color: #0ff;
+      font-family: 'Orbitron', sans-serif;
       overflow: hidden;
     }
 
-    html, body {
-      height: 100%;
+    body {
+      background: #000;
+      background-image: url('final.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    /* Fond d'écran */
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('final.jpg') center/cover no-repeat;
-      z-index: -2;
-    }
-
-    /* Overlay sombre */
     .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      position: absolute;
+      inset: 0;
       background: rgba(0, 0, 0, 0.6);
-      z-index: -1;
+      backdrop-filter: blur(4px);
+      z-index: 1;
     }
 
-    /* Modal de Cookies */
     .cookie-modal {
       position: absolute;
       top: 50%;
@@ -58,13 +41,13 @@
       transform: translate(-50%, -50%);
       background: #111;
       padding: 2rem;
-      width: 80%;
+      width: 90%;
       max-width: 400px;
       text-align: center;
       border: 2px solid #0ff;
       box-shadow: 0 0 20px #0ff;
-      border-radius: 12px;
       z-index: 2;
+      border-radius: 12px;
     }
 
     .cookie-modal h2 {
@@ -74,20 +57,20 @@
 
     .cookie-modal p {
       color: #ccc;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
     }
 
     .cookie-modal button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
       background-color: #0ff;
       color: #000;
       font-weight: bold;
       border: none;
-      padding: 0.75rem 2rem;
-      font-size: 1.2rem;
-      cursor: pointer;
       border-radius: 8px;
-      transition: all 0.3s;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
     }
 
     .cookie-modal button:hover {
@@ -95,7 +78,6 @@
       box-shadow: 0 0 12px #0ff;
     }
 
-    /* Contenu principal */
     .main-content {
       display: none;
       position: absolute;
@@ -103,24 +85,13 @@
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
+      z-index: 2;
       color: #0ff;
-      z-index: 1;
       text-shadow: 0 0 8px #0ff;
-      animation: fadeIn 1s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .main-content .button {
+      margin-top: 1.5rem;
       padding: 1rem 2rem;
       font-size: 1.5rem;
       border: 2px solid #0ff;
@@ -139,38 +110,32 @@
 
     .main-content .ref {
       margin-top: 1rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #ccf;
-      font-style: italic;
+      text-shadow: none;
     }
 
-    /* Réactivité mobile */
     @media (max-width: 600px) {
-      .cookie-modal {
-        width: 90%;
-      }
-
       .main-content .button {
         font-size: 1.2rem;
         padding: 0.8rem 1.5rem;
       }
+
+      .cookie-modal {
+        width: 90%;
+      }
     }
   </style>
 </head>
-
 <body>
-  <!-- Fond d'écran et overlay -->
-  <div class="background"></div>
   <div class="overlay"></div>
 
-  <!-- Modal de Cookies -->
   <div class="cookie-modal" id="cookieModal">
     <h2>Cookies obligatoires</h2>
     <p>Veuillez accepter les cookies pour entrer dans ce monde numérique.</p>
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
-  <!-- Contenu principal -->
   <div class="main-content" id="mainContent">
     <button class="button">La fin de l’individu</button>
     <div class="ref">
@@ -179,17 +144,10 @@
     </div>
   </div>
 
-  <!-- Script JavaScript -->
   <script>
-    // Fonction pour accepter les cookies et afficher le contenu principal
     function acceptCookies() {
-      // Cacher la modal de cookies
       document.getElementById('cookieModal').style.display = 'none';
-
-      // Afficher le contenu principal avec une animation de fade
       document.getElementById('mainContent').style.display = 'block';
-
-      // Désactiver le scroll jusqu'à ce que le contenu soit chargé
       document.body.style.overflow = 'auto';
     }
   </script>
