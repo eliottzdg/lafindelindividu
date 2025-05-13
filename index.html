@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La fin de l'individu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
-    * {
+    body, html {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      height: 100%;
       font-family: 'Orbitron', sans-serif;
-      overflow: hidden;
+      background-color: #000;
+      color: #fff;
+      scroll-behavior: smooth;
     }
 
-    body {
-      background: #000;
-      background-image: url('/assets/images/final.jpg');
+    .hero {
+      height: 100vh;
+      background: url('final.jpg') no-repeat center center;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      position: relative;
     }
 
     .overlay {
@@ -37,7 +31,7 @@
     }
 
     .cookie-modal {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -48,7 +42,7 @@
       text-align: center;
       border: 2px solid #0ff;
       box-shadow: 0 0 20px #0ff;
-      z-index: 2;
+      z-index: 1000;
       border-radius: 12px;
     }
 
@@ -72,7 +66,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      transition: 0.3s;
+      font-family: 'Orbitron', sans-serif;
     }
 
     .cookie-modal button:hover {
@@ -80,69 +74,72 @@
       box-shadow: 0 0 12px #0ff;
     }
 
-    .main-content {
-      display: none;
+    .hero .cta {
       position: absolute;
-      bottom: 2rem;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      text-align: center;
       z-index: 2;
-      color: #0ff;
-      text-shadow: 0 0 8px #0ff;
     }
 
-    .main-content .button {
-      margin-top: 1.5rem;
+    .hero .cta a {
+      display: inline-block;
       padding: 1rem 2rem;
-      font-size: 1.5rem;
       border: 2px solid #0ff;
-      background: transparent;
       color: #0ff;
+      background: transparent;
+      text-decoration: none;
       border-radius: 10px;
-      cursor: pointer;
+      font-size: 1.3rem;
       transition: all 0.3s ease-in-out;
     }
 
-    .main-content .button:hover {
+    .hero .cta a:hover {
       background: #0ff;
       color: #000;
       box-shadow: 0 0 15px #0ff;
     }
 
-    .main-content .ref {
-      margin-top: 1rem;
-      font-size: 0.9rem;
+    .content {
+      padding: 4rem 2rem;
+      background: #111;
+      text-align: center;
+    }
+
+    .content .reference {
+      font-size: 1.1rem;
       color: #ccf;
-      text-shadow: none;
     }
 
     @media (max-width: 600px) {
-      .main-content .button {
-        font-size: 1.2rem;
-        padding: 0.8rem 1.5rem;
+      .hero .cta a {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
       }
 
-      .cookie-modal {
-        width: 90%;
+      .content {
+        padding: 2rem 1rem;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="overlay"></div>
-
   <div class="cookie-modal" id="cookieModal">
     <h2>Cookies obligatoires</h2>
-    <p>Veuillez accepter les cookies pour entrer dans ce monde numérique.</p>
+    <p>Veuillez accepter les cookies pour continuer la navigation.</p>
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
-  <div class="main-content" id="mainContent">
-    <button class="button">La fin de l’individu</button>
-    <div class="ref">
-      KOENIG (G.), <em>La fin de l’individu. Voyage d’un philosophe au pays de l’intelligence artificielle</em><br>
+  <div class="hero">
+    <div class="overlay"></div>
+    <div class="cta">
+      <a href="#suite">La fin de l’individu</a>
+    </div>
+  </div>
+
+  <div class="content" id="suite">
+    <div class="reference">
+      KOENIG (G.), <em>La fin de l’individu. Voyage d’un philosophe au pays de l’intelligence artificielle</em>,<br>
       Coll. "De Facto“, Paris, Le Point, 2019.
     </div>
   </div>
@@ -150,10 +147,12 @@
   <script>
     function acceptCookies() {
       document.getElementById('cookieModal').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
       document.body.style.overflow = 'auto';
+    }
+
+    window.onload = function() {
+      document.body.style.overflow = 'hidden';
     }
   </script>
 </body>
-
 </html>
