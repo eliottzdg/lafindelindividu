@@ -6,32 +6,51 @@
   <title>La fin de l'individu</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    /* Style global pour le corps */
-    body, html {
+    /* Réinitialisation des marges et paddings */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Le corps prend toute la hauteur et largeur */
+    body, html {
+      height: 100%;
+      width: 100%;
       font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Conteneur principal pour la structure */
+    .container {
+      position: relative;
       height: 100%;
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: black; /* Fond noir de base */
-      color: #fff;
+      overflow: hidden;
     }
 
-    /* Image de fond avec réduction de luminosité */
-    body::before {
-      content: "";
+    /* Image de fond */
+    .background-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('final.jpg') no-repeat center center;
-      background-size: contain; /* Affiche l'image entière sans découpe */
-      filter: brightness(50%); /* Réduit la luminosité */
-      z-index: -1; /* Place derrière le contenu */
+      object-fit: contain; /* Affiche l'image entière sans découpe */
+      z-index: -2; /* Place derrière tout */
+    }
+
+    /* Couche de réduction de luminosité */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Réduction de luminosité */
+      z-index: -1; /* Place derrière le contenu mais devant l'image */
     }
 
     /* Titre centré */
@@ -39,7 +58,9 @@
       font-size: 3rem;
       text-transform: uppercase;
       text-align: center;
+      color: #fff;
       text-shadow: 0 0 15px #0ff;
+      z-index: 1; /* Place au-dessus de tout */
     }
 
     /* Menu en haut à droite */
@@ -47,6 +68,7 @@
       position: absolute;
       top: 20px;
       right: 20px;
+      z-index: 1;
     }
 
     .menu-button {
@@ -83,12 +105,20 @@
   </style>
 </head>
 <body>
-  <h1>La fin de l'individu</h1>
-  <div class="menu">
-    <button class="menu-button" onclick="toggleMenu()">Menu</button>
-    <div class="menu-content" id="menuContent">
-      <a href="vocabulaire.html">Vocabulaire</a>
-      <a href="références.html">Références</a>
+  <div class="container">
+    <!-- Image de fond -->
+    <img src="final.jpg" alt="Image de fond" class="background-image">
+    <!-- Couche de réduction de luminosité -->
+    <div class="overlay"></div>
+
+    <!-- Contenu principal -->
+    <h1>La fin de l'individu</h1>
+    <div class="menu">
+      <button class="menu-button" onclick="toggleMenu()">Menu</button>
+      <div class="menu-content" id="menuContent">
+        <a href="vocabulaire.html">Vocabulaire</a>
+        <a href="références.html">Références</a>
+      </div>
     </div>
   </div>
 
