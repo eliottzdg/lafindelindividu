@@ -20,7 +20,7 @@
     .hero {
       height: 100vh;
       width: 100vw;
-      background: url('final.jpg') no-repeat center center, #111; /* Fallback couleur */
+      background: url('final.jpg') no-repeat center center, #111;
       background-size: cover;
       position: relative;
       display: flex;
@@ -38,10 +38,9 @@
     }
 
     .cta {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 3;
+      position: relative;
+      z-index: 2;
+      text-align: center;
     }
 
     .cta a {
@@ -52,9 +51,10 @@
       background: transparent;
       text-decoration: none;
       border-radius: 10px;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       transition: all 0.3s ease-in-out;
       font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
     }
 
     .cta a:hover {
@@ -65,7 +65,7 @@
 
     .menu {
       position: absolute;
-      top: 70px;
+      top: 20px;
       right: 20px;
       z-index: 3;
     }
@@ -119,9 +119,59 @@
     .menu-content a:last-child {
       border-bottom: none;
     }
+
+    .cookie-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      z-index: 1000;
+      border-radius: 12px;
+    }
+
+    .cookie-modal h2 {
+      color: #0ff;
+      margin-bottom: 1rem;
+    }
+
+    .cookie-modal p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .cookie-modal button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background-color: #0ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .cookie-modal button:hover {
+      background: #00ffffbb;
+      box-shadow: 0 0 12px #0ff;
+    }
   </style>
 </head>
 <body>
+  <div class="cookie-modal" id="cookieModal">
+    <h2>Cookies obligatoires</h2>
+    <p>Veuillez accepter les cookies pour rentrer dans ce monde numérique.</p>
+    <button onclick="acceptCookies()">Accepter</button>
+  </div>
+
   <div class="hero">
     <div class="overlay"></div>
     <div class="cta">
@@ -130,16 +180,9 @@
     <div class="menu">
       <button class="menu-button" onclick="toggleMenu()">Menu</button>
       <div class="menu-content" id="menuContent">
-        <a href="#vocabulaire" onclick="openWindow('vocabulaire')">Vocabulaire</a>
-        <a href="#references" onclick="openWindow('references')">Références</a>
+        <a href="vocabulaire.html">Vocabulaire</a>
+        <a href="references.html">Références</a>
       </div>
-    </div>
-  </div>
-
-  <div class="content" id="suite">
-    <div class="reference">
-      KOENIG (G.), <em>La fin de l’individu. Voyage d’un philosophe au pays de l’intelligence artificielle</em>,<br>
-      Coll. "De Facto“, Paris, Le Point, 2019.
     </div>
   </div>
 
@@ -153,20 +196,13 @@
       }
     }
 
-    function openWindow(type) {
-      let url = '';
-      switch (type) {
-        case 'vocabulaire':
-          url = 'vocabulaire.html';
-          break;
-        case 'references':
-          url = 'references.html';
-          break;
-        default:
-          return;
-      }
-      // Ouvre une nouvelle fenêtre avec les mêmes styles
-      window.open(url, '_blank', 'width=800,height=600');
+    function acceptCookies() {
+      document.getElementById('cookieModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    window.onload = function() {
+      document.body.style.overflow = 'hidden';
     }
   </script>
 </body>
