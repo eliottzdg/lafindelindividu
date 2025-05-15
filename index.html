@@ -13,17 +13,18 @@
       background-color: #000;
       color: #fff;
       scroll-behavior: smooth;
+      height: 100%;
+      overflow: hidden;
     }
 
     .hero {
-      height: 100vh; /* Utilise 100% de la hauteur visible */
-      width: 100%; /* Largeur complète */
+      min-height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
+      min-height: 100dvh; /* Corrige les barres de navigation sur certains mobiles */
+      width: 100vw; /* 100% de la largeur de l'écran */
       background: url('final.jpg') no-repeat center center;
-      background-size: cover; /* L'image couvre tout l'écran */
-      position: relative; /* Nécessaire pour positionner l'overlay */
-      display: flex; /* Flexbox pour centrer */
-      justify-content: center; /* Centre horizontalement */
-      align-items: center; /* Centre verticalement */
+      background-size: cover; /* Ajuste l'image pour couvrir tout l'écran */
+      position: relative; /* Nécessaire pour l'overlay */
+      overflow: hidden; /* Empêche tout débordement */
     }
 
     .overlay {
@@ -34,12 +35,59 @@
       z-index: 1;
     }
 
-    .cta {
-      position: relative; /* Nécessaire pour garder le bouton au-dessus de l'overlay */
-      z-index: 2; /* Assure que le bouton est visible */
+    .cookie-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      z-index: 1000;
+      border-radius: 12px;
     }
 
-    .cta a {
+    .cookie-modal h2 {
+      color: #0ff;
+      margin-bottom: 1rem;
+    }
+
+    .cookie-modal p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .cookie-modal button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background-color: #0ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .cookie-modal button:hover {
+      background: #00ffffbb;
+      box-shadow: 0 0 12px #0ff;
+    }
+
+    .hero .cta {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .hero .cta a {
       display: inline-block;
       padding: 1rem 2rem;
       border: 2px solid #0ff;
@@ -52,7 +100,7 @@
       font-family: 'Orbitron', sans-serif;
     }
 
-    .cta a:hover {
+    .hero .cta a:hover {
       background: #0ff;
       color: #000;
       box-shadow: 0 0 15px #0ff;
@@ -70,7 +118,11 @@
     }
 
     @media (max-width: 600px) {
-      .cta a {
+      .hero {
+        min-height: calc(100vh - 56px); /* Ajustement supplémentaire pour mobiles plus anciens */
+      }
+
+      .hero .cta a {
         font-size: 1rem;
         padding: 0.75rem 1.5rem;
       }
@@ -105,6 +157,11 @@
   <script>
     function acceptCookies() {
       document.getElementById('cookieModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    window.onload = function() {
+      document.body.style.overflow = 'hidden';
     }
   </script>
 </body>
