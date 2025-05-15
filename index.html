@@ -18,17 +18,15 @@
     }
 
     .hero {
-      height: 100vh; /* Utilise 100% de la hauteur visible */
-      min-height: 100vh; /* Fix pour certains navigateurs */
-      min-height: 100dvh; /* Nouveau standard pour corriger les barres de navigation */
-      width: 100vw; /* Largeur de l'écran complet */
+      height: 100vh; /* Hauteur par défaut */
+      width: 100vw; /* Largeur complète */
       background: url('final.jpg') no-repeat center center;
-      background-size: cover; /* Assure que l'image couvre tout l'écran */
+      background-size: cover; /* L'image couvre tout l'écran */
       position: relative; /* Nécessaire pour l'overlay */
-      display: flex; /* Flexbox pour centrer le contenu */
+      display: flex; /* Flexbox pour centrer */
       justify-content: center; /* Centre horizontalement */
       align-items: center; /* Centre verticalement */
-      overflow: hidden; /* Évite les débordements */
+      overflow: hidden; /* Empêche les débordements */
     }
 
     .overlay {
@@ -41,7 +39,7 @@
 
     .cta {
       position: relative; /* Nécessaire pour garder le bouton au-dessus de l'overlay */
-      z-index: 2; /* Assure que le bouton est au-dessus de l'overlay */
+      z-index: 2; /* Assure que le bouton est visible */
     }
 
     .cta a {
@@ -120,7 +118,7 @@
 
     @media (max-width: 600px) {
       .hero {
-        min-height: calc(100vh - 56px); /* Ajustement pour les anciens appareils mobiles */
+        height: auto; /* Laisse la hauteur être gérée par JS */
       }
 
       .cta a {
@@ -141,7 +139,7 @@
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
-  <div class="hero">
+  <div class="hero" id="hero">
     <div class="overlay"></div>
     <div class="cta">
       <a href="#suite">La fin de l’individu</a>
@@ -156,14 +154,24 @@
   </div>
 
   <script>
+    function adjustHeroHeight() {
+      const hero = document.getElementById('hero');
+      hero.style.height = `${window.innerHeight}px`; // Ajuste dynamiquement la hauteur
+    }
+
     function acceptCookies() {
       document.getElementById('cookieModal').style.display = 'none';
       document.body.style.overflow = 'auto';
     }
 
-    window.onload = function() {
+    // Ajuste la hauteur au chargement et lors du redimensionnement
+    window.onload = adjustHeroHeight;
+    window.onresize = adjustHeroHeight;
+
+    // Bloque le scrolling tant que les cookies ne sont pas acceptés
+    window.onload = function () {
       document.body.style.overflow = 'hidden';
-    }
+    };
   </script>
 </body>
 </html>
