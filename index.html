@@ -18,17 +18,17 @@
     }
 
     .hero {
-      height: 100vh; /* Utilise 100% de la hauteur visible */
-      min-height: 100vh; /* Fix pour certains navigateurs */
-      min-height: 100dvh; /* Nouveau standard pour corriger les barres de navigation */
-      width: 100vw; /* Largeur de l'écran complet */
-      background: url('final.jpg') no-repeat center center;
-      background-size: cover; /* Assure que l'image couvre tout l'écran */
-      position: relative; /* Nécessaire pour l'overlay */
-      display: flex; /* Flexbox pour centrer le contenu */
-      justify-content: center; /* Centre horizontalement */
-      align-items: center; /* Centre verticalement */
-      overflow: hidden; /* Évite les débordements */
+      height: 100vh;
+      min-height: 100vh;
+      min-height: 100dvh; /* Nouveau standard */
+      width: 100vw;
+      background: url('final.jpg') no-repeat center center, #111; /* Fallback couleur */
+      background-size: cover;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
 
     .overlay {
@@ -40,8 +40,8 @@
     }
 
     .cta {
-      position: relative; /* Nécessaire pour garder le bouton au-dessus de l'overlay */
-      z-index: 2; /* Assure que le bouton est au-dessus de l'overlay */
+      position: relative;
+      z-index: 2;
     }
 
     .cta a {
@@ -120,7 +120,7 @@
 
     @media (max-width: 600px) {
       .hero {
-        min-height: calc(100vh - 56px); /* Ajustement pour les anciens appareils mobiles */
+        min-height: calc(100vh - 56px);
       }
 
       .cta a {
@@ -135,14 +135,14 @@
   </style>
 </head>
 <body>
-  <div class="cookie-modal" id="cookieModal">
+  <div class="cookie-modal" id="cookieModal" aria-hidden="true">
     <h2>Cookies obligatoires</h2>
     <p>Veuillez accepter les cookies pour rentrer dans ce monde numérique.</p>
-    <button onclick="acceptCookies()">Accepter</button>
+    <button id="acceptCookiesBtn">Accepter</button>
   </div>
 
   <div class="hero">
-    <div class="overlay"></div>
+    <div class="overlay" aria-hidden="true"></div>
     <div class="cta">
       <a href="#suite">La fin de l’individu</a>
     </div>
@@ -156,14 +156,20 @@
   </div>
 
   <script>
-    function acceptCookies() {
-      document.getElementById('cookieModal').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      const cookieModal = document.getElementById('cookieModal');
+      const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
+      
+      if (cookieModal && acceptCookiesBtn) {
+        cookieModal.style.display = 'block'; // Affiche le modal
+        document.body.style.overflow = 'hidden'; // Empêche le scroll
 
-    window.onload = function() {
-      document.body.style.overflow = 'hidden';
-    }
+        acceptCookiesBtn.addEventListener('click', function () {
+          cookieModal.style.display = 'none'; // Cache le modal
+          document.body.style.overflow = 'auto'; // Réautorise le scroll
+        });
+      }
+    });
   </script>
 </body>
 </html>
