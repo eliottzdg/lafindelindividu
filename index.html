@@ -112,15 +112,16 @@
       color: #ccf;
     }
 
-    @media (max-width: 600px) {
-      .hero .cta a {
-        font-size: 1rem;
-        padding: 0.75rem 1.5rem;
-      }
-
-      .content {
-        padding: 2rem 1rem;
-      }
+    <style>
+  /* Ajustement pour les petits écrans */
+  @media (max-width: 600px) {
+    .hero {
+      height: 100vh;
+      background: url('final.jpg') no-repeat center center;
+      background-size: cover;
+    }
+  }
+</style>
     }
   </style>
 </head>
