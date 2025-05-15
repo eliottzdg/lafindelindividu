@@ -18,13 +18,17 @@
     }
 
     .hero {
-      min-height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
-      min-height: 100dvh; /* Corrige les barres de navigation sur certains mobiles */
-      width: 100vw; /* 100% de la largeur de l'écran */
+      height: 100vh; /* Utilise 100% de la hauteur visible */
+      min-height: 100vh; /* Fix pour certains navigateurs */
+      min-height: 100dvh; /* Nouveau standard pour corriger les barres de navigation */
+      width: 100vw; /* Largeur de l'écran complet */
       background: url('final.jpg') no-repeat center center;
-      background-size: cover; /* Ajuste l'image pour couvrir tout l'écran */
+      background-size: cover; /* Assure que l'image couvre tout l'écran */
       position: relative; /* Nécessaire pour l'overlay */
-      overflow: hidden; /* Empêche tout débordement */
+      display: flex; /* Flexbox pour centrer le contenu */
+      justify-content: center; /* Centre horizontalement */
+      align-items: center; /* Centre verticalement */
+      overflow: hidden; /* Évite les débordements */
     }
 
     .overlay {
@@ -33,6 +37,30 @@
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(4px);
       z-index: 1;
+    }
+
+    .cta {
+      position: relative; /* Nécessaire pour garder le bouton au-dessus de l'overlay */
+      z-index: 2; /* Assure que le bouton est au-dessus de l'overlay */
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 2px solid #0ff;
+      color: #0ff;
+      background: transparent;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      transition: all 0.3s ease-in-out;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .cta a:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 15px #0ff;
     }
 
     .cookie-modal {
@@ -79,33 +107,6 @@
       box-shadow: 0 0 12px #0ff;
     }
 
-    .hero .cta {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-
-    .hero .cta a {
-      display: inline-block;
-      padding: 1rem 2rem;
-      border: 2px solid #0ff;
-      color: #0ff;
-      background: transparent;
-      text-decoration: none;
-      border-radius: 10px;
-      font-size: 1.3rem;
-      transition: all 0.3s ease-in-out;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .hero .cta a:hover {
-      background: #0ff;
-      color: #000;
-      box-shadow: 0 0 15px #0ff;
-    }
-
     .content {
       padding: 4rem 2rem;
       background: #111;
@@ -119,10 +120,10 @@
 
     @media (max-width: 600px) {
       .hero {
-        min-height: calc(100vh - 56px); /* Ajustement supplémentaire pour mobiles plus anciens */
+        min-height: calc(100vh - 56px); /* Ajustement pour les anciens appareils mobiles */
       }
 
-      .hero .cta a {
+      .cta a {
         font-size: 1rem;
         padding: 0.75rem 1.5rem;
       }
