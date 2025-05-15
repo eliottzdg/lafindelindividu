@@ -19,8 +19,6 @@
 
     .hero {
       height: 100vh;
-      min-height: 100vh;
-      min-height: 100dvh; /* Nouveau standard */
       width: 100vw;
       background: url('final.jpg') no-repeat center center, #111; /* Fallback couleur */
       background-size: cover;
@@ -40,8 +38,10 @@
     }
 
     .cta {
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 3;
     }
 
     .cta a {
@@ -63,88 +63,76 @@
       box-shadow: 0 0 15px #0ff;
     }
 
-    .cookie-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #111;
-      padding: 2rem;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
+    .menu {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      z-index: 3;
+    }
+
+    .menu-button {
+      padding: 1rem 2rem;
       border: 2px solid #0ff;
-      box-shadow: 0 0 20px #0ff;
-      z-index: 1000;
-      border-radius: 12px;
-    }
-
-    .cookie-modal h2 {
       color: #0ff;
-      margin-bottom: 1rem;
-    }
-
-    .cookie-modal p {
-      color: #ccc;
-      font-size: 0.95rem;
-    }
-
-    .cookie-modal button {
-      margin-top: 1.5rem;
-      padding: 0.75rem 2rem;
-      background-color: #0ff;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
+      background: transparent;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      text-transform: uppercase;
       cursor: pointer;
-      font-size: 1rem;
       font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s ease-in-out;
     }
 
-    .cookie-modal button:hover {
-      background: #00ffffbb;
-      box-shadow: 0 0 12px #0ff;
+    .menu-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 15px #0ff;
     }
 
-    .content {
-      padding: 4rem 2rem;
-      background: #111;
-      text-align: center;
+    .menu-content {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      z-index: 4;
+      box-shadow: 0 0 15px #0ff;
     }
 
-    .content .reference {
+    .menu-content a {
+      display: block;
+      padding: 1rem 2rem;
+      color: #0ff;
+      text-decoration: none;
       font-size: 1.1rem;
-      color: #ccf;
+      border-bottom: 1px solid #0ff;
+      transition: all 0.3s ease-in-out;
     }
 
-    @media (max-width: 600px) {
-      .hero {
-        min-height: calc(100vh - 56px);
-      }
+    .menu-content a:hover {
+      background: #0ff;
+      color: #000;
+    }
 
-      .cta a {
-        font-size: 1rem;
-        padding: 0.75rem 1.5rem;
-      }
-
-      .content {
-        padding: 2rem 1rem;
-      }
+    .menu-content a:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
 <body>
-  <div class="cookie-modal" id="cookieModal" aria-hidden="true">
-    <h2>Cookies obligatoires</h2>
-    <p>Veuillez accepter les cookies pour rentrer dans ce monde numérique.</p>
-    <button id="acceptCookiesBtn">Accepter</button>
-  </div>
-
   <div class="hero">
-    <div class="overlay" aria-hidden="true"></div>
+    <div class="overlay"></div>
     <div class="cta">
       <a href="#suite">La fin de l’individu</a>
+    </div>
+    <div class="menu">
+      <button class="menu-button" onclick="toggleMenu()">Menu</button>
+      <div class="menu-content" id="menuContent">
+        <a href="#vocabulaire" onclick="openWindow('vocabulaire')">Vocabulaire</a>
+        <a href="#references" onclick="openWindow('references')">Références</a>
+      </div>
     </div>
   </div>
 
@@ -156,20 +144,30 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const cookieModal = document.getElementById('cookieModal');
-      const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
-      
-      if (cookieModal && acceptCookiesBtn) {
-        cookieModal.style.display = 'block'; // Affiche le modal
-        document.body.style.overflow = 'hidden'; // Empêche le scroll
-
-        acceptCookiesBtn.addEventListener('click', function () {
-          cookieModal.style.display = 'none'; // Cache le modal
-          document.body.style.overflow = 'auto'; // Réautorise le scroll
-        });
+    function toggleMenu() {
+      const menuContent = document.getElementById('menuContent');
+      if (menuContent.style.display === 'block') {
+        menuContent.style.display = 'none';
+      } else {
+        menuContent.style.display = 'block';
       }
-    });
+    }
+
+    function openWindow(type) {
+      let url = '';
+      switch (type) {
+        case 'vocabulaire':
+          url = 'vocabulaire.html';
+          break;
+        case 'references':
+          url = 'references.html';
+          break;
+        default:
+          return;
+      }
+      // Ouvre une nouvelle fenêtre avec les mêmes styles
+      window.open(url, '_blank', 'width=800,height=600');
+    }
   </script>
 </body>
 </html>
