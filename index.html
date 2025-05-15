@@ -13,20 +13,17 @@
       background-color: #000;
       color: #fff;
       scroll-behavior: smooth;
-      height: 100%;
-      overflow: hidden;
     }
 
     .hero {
-      height: 100vh; /* Hauteur par défaut */
-      width: 100vw; /* Largeur complète */
+      height: 100vh; /* Utilise 100% de la hauteur visible */
+      width: 100%; /* Largeur complète */
       background: url('final.jpg') no-repeat center center;
       background-size: cover; /* L'image couvre tout l'écran */
-      position: relative; /* Nécessaire pour l'overlay */
+      position: relative; /* Nécessaire pour positionner l'overlay */
       display: flex; /* Flexbox pour centrer */
       justify-content: center; /* Centre horizontalement */
       align-items: center; /* Centre verticalement */
-      overflow: hidden; /* Empêche les débordements */
     }
 
     .overlay {
@@ -61,50 +58,6 @@
       box-shadow: 0 0 15px #0ff;
     }
 
-    .cookie-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #111;
-      padding: 2rem;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      border: 2px solid #0ff;
-      box-shadow: 0 0 20px #0ff;
-      z-index: 1000;
-      border-radius: 12px;
-    }
-
-    .cookie-modal h2 {
-      color: #0ff;
-      margin-bottom: 1rem;
-    }
-
-    .cookie-modal p {
-      color: #ccc;
-      font-size: 0.95rem;
-    }
-
-    .cookie-modal button {
-      margin-top: 1.5rem;
-      padding: 0.75rem 2rem;
-      background-color: #0ff;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .cookie-modal button:hover {
-      background: #00ffffbb;
-      box-shadow: 0 0 12px #0ff;
-    }
-
     .content {
       padding: 4rem 2rem;
       background: #111;
@@ -117,10 +70,6 @@
     }
 
     @media (max-width: 600px) {
-      .hero {
-        height: auto; /* Laisse la hauteur être gérée par JS */
-      }
-
       .cta a {
         font-size: 1rem;
         padding: 0.75rem 1.5rem;
@@ -139,7 +88,7 @@
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
-  <div class="hero" id="hero">
+  <div class="hero">
     <div class="overlay"></div>
     <div class="cta">
       <a href="#suite">La fin de l’individu</a>
@@ -154,24 +103,9 @@
   </div>
 
   <script>
-    function adjustHeroHeight() {
-      const hero = document.getElementById('hero');
-      hero.style.height = `${window.innerHeight}px`; // Ajuste dynamiquement la hauteur
-    }
-
     function acceptCookies() {
       document.getElementById('cookieModal').style.display = 'none';
-      document.body.style.overflow = 'auto';
     }
-
-    // Ajuste la hauteur au chargement et lors du redimensionnement
-    window.onload = adjustHeroHeight;
-    window.onresize = adjustHeroHeight;
-
-    // Bloque le scrolling tant que les cookies ne sont pas acceptés
-    window.onload = function () {
-      document.body.style.overflow = 'hidden';
-    };
   </script>
 </body>
 </html>
