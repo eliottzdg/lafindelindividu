@@ -114,6 +114,7 @@
       box-shadow: 0 0 20px #0ff;
       z-index: 1000;
       border-radius: 12px;
+      display: none; /* Par défaut, la modale est masquée */
     }
 
     .cookie-modal h2 {
@@ -172,8 +173,16 @@
   <script>
     // Fonction pour gérer la modale des cookies
     function acceptCookies() {
+      localStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix de l'utilisateur
       document.getElementById('cookieModal').style.display = 'none'; // Cache la modale
     }
+
+    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés
+    window.onload = function () {
+      if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookieModal').style.display = 'block'; // Affiche la modale
+      }
+    };
 
     // Fonction pour gérer l'affichage du menu
     function toggleMenu() {
