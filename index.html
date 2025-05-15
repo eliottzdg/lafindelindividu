@@ -13,15 +13,18 @@
       background-color: #000;
       color: #fff;
       scroll-behavior: smooth;
+      height: 100%;
+      overflow: hidden;
     }
 
     .hero {
-      height: 100vh; /* 100% de la hauteur de l'écran */
-      width: 100vw;  /* 100% de la largeur de l'écran */
-      background: url('final.jpg') no-repeat center center fixed; /* Pour éviter les décalages */
-      background-size: cover; /* S'assure que l'image couvre tout l'écran */
-      position: relative;
-      overflow: hidden; /* Évite les débordements */
+      min-height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
+      min-height: 100dvh; /* Corrige les barres de navigation sur certains mobiles */
+      width: 100vw; /* 100% de la largeur de l'écran */
+      background: url('final.jpg') no-repeat center center;
+      background-size: cover; /* Ajuste l'image pour couvrir tout l'écran */
+      position: relative; /* Nécessaire pour l'overlay */
+      overflow: hidden; /* Empêche tout débordement */
     }
 
     .overlay {
@@ -116,7 +119,7 @@
 
     @media (max-width: 600px) {
       .hero {
-        min-height: calc(100vh - 56px); /* Fix pour les barres de navigation mobiles */
+        min-height: calc(100vh - 56px); /* Ajustement supplémentaire pour mobiles plus anciens */
       }
 
       .hero .cta a {
