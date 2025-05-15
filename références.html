@@ -12,9 +12,25 @@
       font-family: 'Orbitron', sans-serif;
       height: 100%;
       width: 100%;
-      background: url('final.jpg') no-repeat center center fixed;
-      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black; /* Fond noir de base */
       color: #fff;
+    }
+
+    /* Image de fond avec réduction de luminosité */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('final.jpg') no-repeat center center;
+      background-size: contain; /* Affiche l'image entière sans découpe */
+      filter: brightness(50%); /* Réduit la luminosité */
+      z-index: -1; /* Place derrière le contenu */
     }
 
     .cta {
@@ -44,15 +60,19 @@
 
     .content {
       text-align: center;
-      margin-top: 100px;
       padding: 2rem;
     }
 
-    .content .reference {
+    .content h1 {
+      font-size: 3rem;
+      color: #0ff;
+      text-shadow: 0 0 15px #0ff;
+    }
+
+    .content p {
       font-size: 1.2rem;
       line-height: 1.8;
       color: #ccf;
-      text-align: center;
     }
   </style>
 </head>
