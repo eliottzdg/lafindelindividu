@@ -172,20 +172,20 @@
   <!-- Modale des cookies -->
   <div class="cookie-modal" id="cookieModal">
     <h2>Cookies obligatoires</h2>
-    <p>Veuillez accepter les cookies pour continuer votre navigation.</p>
+    <p>Veuillez accepter les cookies pour rentrer dans ce monde numérique.</p>
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
   <script>
     // Fonction pour gérer la modale des cookies
     function acceptCookies() {
-      localStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix de l'utilisateur
+      sessionStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix dans la session
       document.getElementById('cookieModal').style.display = 'none'; // Cache la modale
     }
 
-    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés
+    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés dans cette session
     window.onload = function () {
-      if (!localStorage.getItem('cookiesAccepted')) {
+      if (!sessionStorage.getItem('cookiesAccepted')) {
         document.getElementById('cookieModal').style.display = 'block'; // Affiche la modale
       }
     };
