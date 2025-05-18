@@ -38,7 +38,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Affiche l'image entière sans découpe */
+      object-fit: cover; /* Remplit tout l'écran sans espace blanc */
       z-index: -2; /* Place derrière tout */
     }
 
@@ -102,9 +102,56 @@
       background: #0ff;
       color: #000;
     }
+
+    /* Modale des cookies */
+    .cookie-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      z-index: 1000;
+      border-radius: 12px;
+      display: none; /* Par défaut, la modale est masquée */
+    }
+
+    .cookie-modal h2 {
+      color: #0ff;
+      margin-bottom: 1rem;
+    }
+
+    .cookie-modal p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .cookie-modal button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background-color: #0ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .cookie-modal button:hover {
+      background: #00ffffbb;
+      box-shadow: 0 0 12px #0ff;
+    }
   </style>
 </head>
 <body>
+  <!-- Conteneur principal -->
   <div class="container">
     <!-- Image de fond -->
     <img src="final.jpg" alt="Image de fond" class="background-image">
@@ -122,7 +169,27 @@
     </div>
   </div>
 
+  <!-- Modale des cookies -->
+  <div class="cookie-modal" id="cookieModal">
+    <h2>Cookies obligatoires</h2>
+    <p>Veuillez accepter les cookies pour continuer votre navigation.</p>
+    <button onclick="acceptCookies()">Accepter</button>
+  </div>
+
   <script>
+    // Fonction pour gérer la modale des cookies
+    function acceptCookies() {
+      localStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix de l'utilisateur
+      document.getElementById('cookieModal').style.display = 'none'; // Cache la modale
+    }
+
+    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés
+    window.onload = function () {
+      if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookieModal').style.display = 'block'; // Affiche la modale
+      }
+    };
+
     // Fonction pour gérer l'affichage du menu
     function toggleMenu() {
       const menu = document.getElementById('menuContent');
