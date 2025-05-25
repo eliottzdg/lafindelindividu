@@ -15,22 +15,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: black; /* Fond noir de base */
+      background: black;
       color: #fff;
     }
 
-    /* Image de fond avec réduction de luminosité */
-    body::before {
-      content: "";
+    .background-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('final.jpg') no-repeat center center;
-      background-size: contain; /* Affiche l'image entière sans découpe */
-      filter: brightness(50%); /* Réduit la luminosité */
-      z-index: -1; /* Place derrière le contenu */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
 
     .cta {
@@ -61,22 +62,134 @@
     .content {
       text-align: center;
       padding: 2rem;
+      background: rgba(10, 20, 30, 0.85);
+      border-radius: 15px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 32px #0ff77f7f;
+      min-width: 340px;
+      max-width: 95vw;
     }
 
     .content h1 {
       font-size: 3rem;
       color: #0ff;
       text-shadow: 0 0 15px #0ff;
+      margin-bottom: 2rem;
+    }
+
+    .vocab-list {
+      text-align: left;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    .vocab-item {
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid #0ff3;
+      padding-bottom: 0.8rem;
+    }
+
+    .vocab-term {
+      font-size: 1.4rem;
+      color: #0ff;
+      cursor: pointer;
+      display: inline-block;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+      user-select: none;
+      position: relative;
+    }
+
+    .vocab-term:hover, .vocab-term:focus {
+      color: #fff;
+      text-shadow: 0 0 8px #0ff, 0 0 2px #fff;
+    }
+
+    .vocab-def {
+      font-size: 1.2rem;
+      color: #fff;
+      background: transparent;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.6s cubic-bezier(0.77,0,0.175,1), opacity 0.4s;
+      will-change: max-height, opacity;
+      padding-left: 0.5rem;
+    }
+    .vocab-item.open .vocab-def {
+      max-height: 400px;
+      opacity: 1;
+      transition: max-height 0.6s cubic-bezier(0.77,0,0.175,1), opacity 0.4s 0.08s;
+    }
+    .vocab-term::after {
+      content: " ▼";
+      font-size: 0.8em;
+      transition: transform 0.3s;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .vocab-item.open .vocab-term::after {
+      transform: rotate(-180deg);
+    }
+
+    @media (max-width: 600px) {
+      .content h1 { font-size: 2rem; }
+      .vocab-term, .vocab-def { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+  <img src="final.jpg" alt="Image de fond" class="background-image">
+  <div class="overlay"></div>
   <div class="cta">
     <a href="index.html">Retour à l'accueil</a>
   </div>
   <div class="content">
     <h1>Vocabulaire</h1>
-    <p>Contenu du vocabulaire...</p>
+    <ul class="vocab-list">
+      <li class="vocab-item">
+        <span class="vocab-term" tabindex="0">Nudge</span>
+        <div class="vocab-def">
+          en Français coup de pouce, le nudge vise à orienter les choix des individus de manière bienveillante et non coercitive
+        </div>
+      </li>
+      <li class="vocab-item">
+        <span class="vocab-term" tabindex="0">Data</span>
+        <div class="vocab-def">
+          anglicisme des données numériques.
+        </div>
+      </li>
+      <li class="vocab-item">
+        <span class="vocab-term" tabindex="0">Deep learning</span>
+        <div class="vocab-def">
+          apprentissage profond ou apprentissage en profondeur est un sous-domaine de l’intelligence artificielle
+        </div>
+      </li>
+      <li class="vocab-item">
+        <span class="vocab-term" tabindex="0">AI act</span>
+        <div class="vocab-def">
+          Le règlement sur l'intelligence artificielle est un règlement européen qui introduit un cadre réglementaire et juridique commun
+        </div>
+      </li>
+    </ul>
   </div>
+  <script>
+    // Gestion du clic ou touche entrée sur les termes
+    document.querySelectorAll('.vocab-term').forEach(function(term) {
+      term.addEventListener('click', function() {
+        const item = term.parentElement;
+        item.classList.toggle('open');
+      });
+      term.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          term.click();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
