@@ -6,69 +6,54 @@
   <title>La fin de l'individu</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    /* Réinitialisation des marges et paddings */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* Le corps prend toute la hauteur et largeur */
     body, html {
       height: 100%;
       width: 100%;
       font-family: 'Orbitron', sans-serif;
     }
 
-    /* Conteneur principal pour la structure */
     .container {
       position: relative;
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
     }
 
-    /* Image de fond */
     .background-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Remplit tout l'écran sans espace blanc */
-      z-index: -2; /* Place derrière tout */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
     }
 
-    /* Couche de réduction de luminosité */
     .overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Réduction de luminosité */
-      z-index: -1; /* Place derrière le contenu mais devant l'image */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
 
-    /* Titre centré */
     h1 {
       font-size: 3rem;
       text-transform: uppercase;
       text-align: center;
       color: #fff;
       text-shadow: 0 0 15px #0ff;
-      z-index: 1; /* Place au-dessus de tout */
+      z-index: 1;
     }
 
-    /* Menu en haut à droite */
     .menu {
       position: absolute;
       top: 20px;
       right: 20px;
-      z-index: 1;
+      z-index: 2;
     }
 
     .menu-button {
@@ -79,26 +64,46 @@
       text-transform: uppercase;
       font-family: 'Orbitron', sans-serif;
       cursor: pointer;
+      border-radius: 10px;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.1rem;
+      box-shadow: 0 0 10px #0ff44a99;
+    }
+    .menu-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 20px #0ff;
     }
 
     .menu-content {
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+      background: rgba(0,0,0,0.85);
+      box-shadow: 0 0 20px #0ff33f77;
       display: none;
       position: absolute;
       top: 60px;
       right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #0ff;
-      border-radius: 10px;
+      min-width: 220px;
+      overflow: hidden;
     }
 
-    .menu-content a {
+    .menu-content a, .menu-content button {
       color: #0ff;
+      background: transparent;
+      border: none;
+      text-align: left;
+      width: 100%;
       text-decoration: none;
       padding: 1rem 2rem;
       display: block;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
     }
-
-    .menu-content a:hover {
+    .menu-content a:hover, .menu-content button:hover {
       background: #0ff;
       color: #000;
     }
@@ -116,21 +121,18 @@
       text-align: center;
       border: 2px solid #0ff;
       box-shadow: 0 0 20px #0ff;
-      z-index: 1000;
+      z-index: 2000;
       border-radius: 12px;
-      display: none; /* Par défaut, la modale est masquée */
+      display: none;
     }
-
     .cookie-modal h2 {
       color: #0ff;
       margin-bottom: 1rem;
     }
-
     .cookie-modal p {
       color: #ccc;
       font-size: 0.95rem;
     }
-
     .cookie-modal button {
       margin-top: 1.5rem;
       padding: 0.75rem 2rem;
@@ -143,15 +145,17 @@
       font-size: 1rem;
       font-family: 'Orbitron', sans-serif;
     }
-
     .cookie-modal button:hover {
       background: #00ffffbb;
       box-shadow: 0 0 12px #0ff;
     }
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .menu-content { min-width: 140px; }
+    }
   </style>
 </head>
 <body>
-  <!-- Conteneur principal -->
   <div class="container">
     <!-- Image de fond -->
     <img src="final.jpg" alt="Image de fond" class="background-image">
@@ -165,6 +169,7 @@
       <div class="menu-content" id="menuContent">
         <a href="vocabulaire.html">Vocabulaire</a>
         <a href="références.html">Références</a>
+        <a href="sommaire.html">Sommaire</a>
       </div>
     </div>
   </div>
@@ -172,25 +177,23 @@
   <!-- Modale des cookies -->
   <div class="cookie-modal" id="cookieModal">
     <h2>Cookies obligatoires</h2>
-    <p>Veuillez accepter les cookies pour rentrer dans ce monde numérique.</p>
+    <p>Veuillez accepter les cookies pour continuer votre navigation.</p>
     <button onclick="acceptCookies()">Accepter</button>
   </div>
 
   <script>
-    // Fonction pour gérer la modale des cookies
+    // Fonction pour gérer la modale des cookies (sessionStorage)
     function acceptCookies() {
-      sessionStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix dans la session
-      document.getElementById('cookieModal').style.display = 'none'; // Cache la modale
+      sessionStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookieModal').style.display = 'none';
     }
-
-    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés dans cette session
     window.onload = function () {
       if (!sessionStorage.getItem('cookiesAccepted')) {
-        document.getElementById('cookieModal').style.display = 'block'; // Affiche la modale
+        document.getElementById('cookieModal').style.display = 'block';
       }
     };
 
-    // Fonction pour gérer l'affichage du menu
+    // Menu déroulant
     function toggleMenu() {
       const menu = document.getElementById('menuContent');
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
