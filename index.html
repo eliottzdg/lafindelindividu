@@ -10,24 +10,25 @@
       margin: 0;
       padding: 0;
       font-family: 'Orbitron', sans-serif;
-      height: 100vh;
-      width: 100vw;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       background: black;
       color: #fff;
     }
     .background-image {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: contain;
+      width: 100%; height: 100%;
+      object-fit: cover;
       z-index: -2;
-      background: black;
     }
     .overlay {
       position: absolute;
       top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      width: 100%; height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
@@ -109,12 +110,6 @@
       .content { margin-top: 90px; padding: 1rem 0.5rem;}
       .menu-btn { font-size: 1rem; padding: 0.7rem 1.2rem;}
       .menu-dropdown a { font-size: 1rem; padding: 0.8rem 1.2rem;}
-      .background-image, .overlay {
-        width: 100vw !important;
-        height: 100vh !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-      }
     }
   </style>
 </head>
