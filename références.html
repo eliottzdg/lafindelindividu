@@ -32,7 +32,6 @@
       background-color: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
-    /* Menu styling */
     .menu-container {
       position: absolute;
       top: 20px;
@@ -183,12 +182,26 @@
     .reference-details a:hover {
       color: #fff;
     }
+    .source-essai {
+      margin: 2.6rem auto 0 auto;
+      max-width: 700px;
+      font-size: 1.2rem;
+      color: #0ff;
+      background: rgba(10, 20, 30, 0.7);
+      border-left: 4px solid #0ff;
+      padding: 1rem 1.6rem;
+      border-radius: 9px;
+      box-shadow: 0 0 16px #0ff7;
+      text-align: left;
+      font-style: italic;
+    }
     @media (max-width: 600px) {
       .content h1 { font-size: 2rem; }
-      .references-list, .reference-details { font-size: 1rem; }
+      .references-list, .reference-details, .source-essai { font-size: 1rem; }
       .content { margin-top: 90px; padding: 1rem 0.5rem;}
       .menu-btn { font-size: 1rem; padding: 0.7rem 1.2rem;}
       .menu-dropdown a { font-size: 1rem; padding: 0.8rem 1.2rem;}
+      .source-essai { padding: 0.7rem 1rem; }
     }
   </style>
 </head>
@@ -233,6 +246,9 @@
         </div>
       </li>
     </ul>
+    <div class="source-essai">
+      Source de l’essai : KOENIG (G.), <i>La fin de l’individu. Voyage d’un philosophe au pays de l’intelligence artificielle</i>, Coll. "De Facto“, Paris, Le Point, 2019.
+    </div>
   </div>
   <script>
     // Menu dropdown logic
