@@ -14,7 +14,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Align to top, we'll use margin-top on .content */
       background: black;
       color: #fff;
     }
@@ -68,6 +68,7 @@
       box-shadow: 0 0 32px #0ff77f7f;
       min-width: 340px;
       max-width: 95vw;
+      margin-top: 80px; /* Décale le cadre vers le bas */
     }
 
     .content h1 {
@@ -138,6 +139,7 @@
     @media (max-width: 600px) {
       .content h1 { font-size: 2rem; }
       .vocab-term, .vocab-def { font-size: 1rem; }
+      .content { margin-top: 40px; }
     }
   </style>
 </head>
