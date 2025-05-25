@@ -6,21 +6,16 @@
   <title>La fin de l'individu</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    /* Réinitialisation des marges et paddings */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    /* Le corps prend toute la hauteur et largeur */
     body, html {
       height: 100%;
       width: 100%;
       font-family: 'Orbitron', sans-serif;
     }
-
-    /* Conteneur principal pour la structure */
     .container {
       position: relative;
       height: 100%;
@@ -30,47 +25,38 @@
       align-items: center;
       overflow: hidden;
     }
-
-    /* Image de fond */
     .background-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Remplit tout l'écran sans espace blanc */
-      z-index: -2; /* Place derrière tout */
+      object-fit: cover;
+      z-index: -2;
     }
-
-    /* Couche de réduction de luminosité */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Réduction de luminosité */
-      z-index: -1; /* Place derrière le contenu mais devant l'image */
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
-
-    /* Titre centré */
     h1 {
       font-size: 3rem;
       text-transform: uppercase;
       text-align: center;
       color: #fff;
       text-shadow: 0 0 15px #0ff;
-      z-index: 1; /* Place au-dessus de tout */
+      z-index: 1;
     }
-
-    /* Menu en haut à droite */
     .menu {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 1;
     }
-
     .menu-button {
       padding: 1rem 2rem;
       border: 2px solid #0ff;
@@ -80,7 +66,6 @@
       font-family: 'Orbitron', sans-serif;
       cursor: pointer;
     }
-
     .menu-content {
       display: none;
       position: absolute;
@@ -90,20 +75,16 @@
       border: 2px solid #0ff;
       border-radius: 10px;
     }
-
     .menu-content a {
       color: #0ff;
       text-decoration: none;
       padding: 1rem 2rem;
       display: block;
     }
-
     .menu-content a:hover {
       background: #0ff;
       color: #000;
     }
-
-    /* Modale des cookies */
     .cookie-modal {
       position: fixed;
       top: 50%;
@@ -118,21 +99,23 @@
       box-shadow: 0 0 20px #0ff;
       z-index: 1000;
       border-radius: 12px;
-      display: none; /* Par défaut, la modale est masquée */
+      display: none;
     }
-
     .cookie-modal h2 {
       color: #0ff;
       margin-bottom: 1rem;
     }
-
     .cookie-modal p {
       color: #ccc;
       font-size: 0.95rem;
     }
-
-    .cookie-modal button {
+    .cookie-modal .cookie-btns {
       margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .cookie-modal button {
       padding: 0.75rem 2rem;
       background-color: #0ff;
       color: #000;
@@ -142,10 +125,21 @@
       cursor: pointer;
       font-size: 1rem;
       font-family: 'Orbitron', sans-serif;
+      transition: background 0.2s, color 0.2s;
     }
-
     .cookie-modal button:hover {
       background: #00ffffbb;
+      box-shadow: 0 0 12px #0ff;
+      color: #222;
+    }
+    .cookie-modal .refuse-btn {
+      background: #222;
+      color: #0ff;
+      border: 1px solid #0ff;
+    }
+    .cookie-modal .refuse-btn:hover {
+      background: #0ff;
+      color: #000;
       box-shadow: 0 0 12px #0ff;
     }
   </style>
@@ -174,24 +168,29 @@
   <div class="cookie-modal" id="cookieModal">
     <h2>Cookies obligatoires</h2>
     <p>Veuillez accepter les cookies pour continuer votre navigation.</p>
-    <button onclick="acceptCookies()">Accepter</button>
+    <div class="cookie-btns">
+      <button onclick="acceptCookies()">Accepter</button>
+      <button class="refuse-btn" onclick="refuseCookies()">Refuser</button>
+    </div>
   </div>
 
   <script>
     // Fonction pour gérer la modale des cookies
     function acceptCookies() {
-      sessionStorage.setItem('cookiesAccepted', 'true'); // Enregistre le choix dans la session
-      document.getElementById('cookieModal').style.display = 'none'; // Cache la modale
+      sessionStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookieModal').style.display = 'none';
     }
-
-    // Afficher la modale des cookies uniquement si les cookies n'ont pas encore été acceptés dans cette session
+    function refuseCookies() {
+      sessionStorage.setItem('cookiesAccepted', 'false');
+      document.getElementById('cookieModal').style.display = 'none';
+      // Optionnel : rediriger, afficher un message, bloquer la navigation, etc.
+      alert("Vous avez refusé les cookies. Certaines fonctionnalités peuvent être limitées.");
+    }
     window.onload = function () {
       if (!sessionStorage.getItem('cookiesAccepted')) {
-        document.getElementById('cookieModal').style.display = 'block'; // Affiche la modale
+        document.getElementById('cookieModal').style.display = 'block';
       }
     };
-
-    // Fonction pour gérer l'affichage du menu
     function toggleMenu() {
       const menu = document.getElementById('menuContent');
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
