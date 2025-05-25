@@ -32,27 +32,67 @@
       background-color: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
-    .cta {
+    /* Menu styling */
+    .menu-container {
       position: absolute;
       top: 20px;
       left: 20px;
+      z-index: 10;
     }
-    .cta a {
-      display: inline-block;
-      padding: 1rem 2rem;
+    .menu-btn {
+      background: transparent;
       border: 2px solid #0ff;
       color: #0ff;
-      background: transparent;
-      text-decoration: none;
-      border-radius: 10px;
       font-size: 1.3rem;
-      transition: all 0.3s ease-in-out;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
       font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s;
     }
-    .cta a:hover {
+    .menu-btn:hover, .menu-btn:focus {
       background: #0ff;
       color: #000;
       box-shadow: 0 0 15px #0ff;
+      outline: none;
+    }
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: rgba(10,20,30,0.97);
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      min-width: 210px;
+      box-shadow: 0 2px 35px #0ff55a39;
+      padding: 0.5rem 0;
+    }
+    .menu-dropdown a {
+      display: block;
+      color: #0ff;
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      font-size: 1.18rem;
+      border-bottom: 1px solid #0ff2;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .menu-dropdown a:last-child {
+      border-bottom: none;
+    }
+    .menu-dropdown a:hover, .menu-dropdown a:focus {
+      background: #0ff;
+      color: #111;
+      outline: none;
+    }
+    .menu-container.open .menu-dropdown {
+      display: block;
+      animation: fadein 0.24s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     .content {
       text-align: center;
@@ -63,7 +103,7 @@
       box-shadow: 0 0 32px #0ff77f7f;
       min-width: 340px;
       max-width: 95vw;
-      margin-top: 120px; /* même hauteur que la page sommaire */
+      margin-top: 120px;
     }
     .content h1 {
       font-size: 3rem;
@@ -128,15 +168,24 @@
       .content h1 { font-size: 2rem; }
       .vocab-term, .vocab-def { font-size: 1rem; }
       .content { margin-top: 60px; }
+      .menu-btn { font-size: 1rem; padding: 0.7rem 1.2rem;}
+      .menu-dropdown a { font-size: 1rem; padding: 0.8rem 1.2rem;}
     }
   </style>
 </head>
 <body>
   <img src="final.jpg" alt="Image de fond" class="background-image">
   <div class="overlay"></div>
-  <div class="cta">
-    <a href="index.html">Retour à l'accueil</a>
-  </div>
+  <!-- MENU -->
+  <nav class="menu-container" id="menuContainer">
+    <button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false">Menu</button>
+    <div class="menu-dropdown" id="menuDropdown" role="menu">
+      <a href="index.html">Accueil</a>
+      <a href="sommaire.html">Sommaire</a>
+      <a href="vocabulaire.html">Vocabulaire</a>
+      <a href="références.html">Références</a>
+    </div>
+  </nav>
   <div class="content">
     <h1>Vocabulaire</h1>
     <ul class="vocab-list">
@@ -179,6 +228,26 @@
     </ul>
   </div>
   <script>
+    // Menu dropdown logic
+    const menuBtn = document.getElementById('menuBtn');
+    const menuContainer = document.getElementById('menuContainer');
+    document.addEventListener('click', function(e) {
+      if(menuContainer.contains(e.target)) {
+        menuContainer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', menuContainer.classList.contains('open'));
+      } else {
+        menuContainer.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    menuBtn.addEventListener('keydown', function(e) {
+      if(e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        menuContainer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', menuContainer.classList.contains('open'));
+      }
+    });
+
     // Gestion du clic ou touche entrée sur les termes
     document.querySelectorAll('.vocab-term').forEach(function(term) {
       term.addEventListener('click', function() {
