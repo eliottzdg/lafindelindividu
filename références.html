@@ -14,23 +14,24 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      background: black; /* Fond noir de base */
+      align-items: flex-start;
+      background: black;
       color: #fff;
     }
 
-    /* Image de fond avec réduction de luminosité */
-    body::before {
-      content: "";
+    .background-image {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('final.jpg') no-repeat center center;
-      background-size: contain; /* Affiche l'image entière sans découpe */
-      filter: brightness(50%); /* Réduit la luminosité */
-      z-index: -1; /* Place derrière le contenu */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
 
     .cta {
@@ -59,30 +60,164 @@
     }
 
     .content {
+      margin-top: 80px;
+      background: rgba(10, 20, 30, 0.85);
+      border-radius: 15px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 32px #0ff77f7f;
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 2.5rem;
+      min-width: 340px;
+      max-width: 95vw;
     }
 
     .content h1 {
       font-size: 3rem;
       color: #0ff;
       text-shadow: 0 0 15px #0ff;
+      margin-bottom: 2rem;
     }
 
-    .content p {
+    .references-list {
+      text-align: left;
+      max-width: 700px;
+      margin: 0 auto;
+      padding-left: 0;
       font-size: 1.2rem;
-      line-height: 1.8;
-      color: #ccf;
+      list-style: none;
+    }
+
+    .reference-item {
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid #0ff3;
+      padding-bottom: 0.8rem;
+    }
+
+    .reference-title {
+      font-size: 1.25rem;
+      color: #0ff;
+      cursor: pointer;
+      display: inline-block;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+      user-select: none;
+      position: relative;
+      font-style: italic;
+    }
+
+    .reference-title::before,
+    .reference-title::after {
+      content: '"';
+      color: #0ff;
+      font-style: normal;
+    }
+
+    .reference-title:hover, .reference-title:focus {
+      color: #fff;
+      text-shadow: 0 0 8px #0ff, 0 0 2px #fff;
+    }
+
+    .reference-details {
+      font-size: 1.1rem;
+      color: #fff;
+      background: transparent;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.6s cubic-bezier(0.77,0,0.175,1), opacity 0.4s;
+      will-change: max-height, opacity;
+      padding-left: 0.5rem;
+      word-break: break-word;
+    }
+    .reference-item.open .reference-details {
+      max-height: 400px;
+      opacity: 1;
+      transition: max-height 0.6s cubic-bezier(0.77,0,0.175,1), opacity 0.4s 0.08s;
+    }
+    .reference-title::after {
+      margin-left: 0.2em;
+    }
+    .reference-title::before {
+      margin-right: 0.2em;
+    }
+    .reference-title:after {
+      content: '" ▼';
+      font-size: 0.9em;
+      transition: transform 0.3s;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .reference-item.open .reference-title:after {
+      transform: rotate(-180deg);
+    }
+
+    .reference-details a {
+      color: #0ff;
+      text-decoration: underline;
+      transition: color 0.2s;
+      word-break: break-all;
+    }
+    .reference-details a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .content h1 { font-size: 2rem; }
+      .references-list, .reference-details { font-size: 1rem; }
+      .content { margin-top: 40px; padding: 1rem 0.5rem;}
     }
   </style>
 </head>
 <body>
+  <img src="final.jpg" alt="Image de fond" class="background-image">
+  <div class="overlay"></div>
   <div class="cta">
     <a href="index.html">Retour à l'accueil</a>
   </div>
   <div class="content">
     <h1>Références</h1>
-    <p>KOENIG (G.), <em>La fin de l’individu</em>, Coll. "De Facto“, Paris, Le Point, 2019.</p>
+    <ul class="references-list">
+      <li class="reference-item">
+        <span class="reference-title" tabindex="0">Quand l’IA nous manipule : comment réguler les pratiques qui malmènent notre libre arbitre ?</span>
+        <div class="reference-details">
+          BERNHEIM-DESVAUX (S.) et SENECHAL (J.), The Conversation, sur
+          <a href="https://theconversation.com/quand-lia-nous-manipule-comment-reguler-les-pratiques-qui-malmenent-notre-libre-arbitre-246930" target="_blank">https://theconversation.com/quand-lia-nous-manipule-comment-reguler-les-pratiques-qui-malmenent-notre-libre-arbitre-246930</a>
+          ; dernière consultation le 08/05/2025.
+        </div>
+      </li>
+      <li class="reference-item">
+        <span class="reference-title" tabindex="0">Réglementer l’intelligence artificielle pour protéger les droits humains</span>
+        <div class="reference-details">
+          GERMAIN (G.), Amnesty International, sur
+          <a href="https://www.amnesty.be/infos/notre-magazine-le-fil/hiver-2023/article/reglementer-intelligence-artificielle-proteger-droits-humains" target="_blank">https://www.amnesty.be/infos/notre-magazine-le-fil/hiver-2023/article/reglementer-intelligence-artificielle-proteger-droits-humains</a>
+          ; dernière consultation le 08/05/2025.
+        </div>
+      </li>
+      <li class="reference-item">
+        <span class="reference-title" tabindex="0">Protéger les droits de l’homme à l’ère de l’intelligence artificielle, Conseil de l’Europe</span>
+        <div class="reference-details">
+          MIJATOVIC (D.), sur
+          <a href="https://www.coe.int/fr/web/disability/-/safeguarding-human-rights-in-the-era-of-artificial-intelligence" target="_blank">https://www.coe.int/fr/web/disability/-/safeguarding-human-rights-in-the-era-of-artificial-intelligence</a>
+          ; dernière consultation le 08/05/2025.
+        </div>
+      </li>
+    </ul>
   </div>
+  <script>
+    // Gestion du clic ou touche entrée sur les titres de références
+    document.querySelectorAll('.reference-title').forEach(function(title) {
+      title.addEventListener('click', function() {
+        const item = title.parentElement;
+        item.classList.toggle('open');
+      });
+      title.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          title.click();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
