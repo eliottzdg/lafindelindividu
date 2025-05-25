@@ -6,24 +6,17 @@
   <title>Sommaire</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
       height: 100%;
       width: 100%;
-      font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      background: #000;
-      overflow: hidden;
-    }
-    .container {
-      position: relative;
-      height: 100vh;
-      width: 100vw;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      z-index: 1;
+      align-items: flex-start;
+      background: black;
+      color: #fff;
     }
     .background-image {
       position: absolute;
@@ -39,81 +32,163 @@
       background-color: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
-    h1 {
-      font-size: 2.5rem;
-      text-transform: uppercase;
+    /* Menu styling */
+    .menu-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+    .menu-btn {
+      background: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      font-size: 1.3rem;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s;
+    }
+    .menu-btn:hover, .menu-btn:focus {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 15px #0ff;
+      outline: none;
+    }
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: rgba(10,20,30,0.97);
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      min-width: 210px;
+      box-shadow: 0 2px 35px #0ff55a39;
+      padding: 0.5rem 0;
+    }
+    .menu-dropdown a {
+      display: block;
+      color: #0ff;
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      font-size: 1.18rem;
+      border-bottom: 1px solid #0ff2;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .menu-dropdown a:last-child {
+      border-bottom: none;
+    }
+    .menu-dropdown a:hover, .menu-dropdown a:focus {
+      background: #0ff;
+      color: #111;
+      outline: none;
+    }
+    .menu-container.open .menu-dropdown {
+      display: block;
+      animation: fadein 0.24s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .content {
+      margin-top: 120px;
+      background: rgba(10, 20, 30, 0.85);
+      border-radius: 15px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 32px #0ff77f7f;
       text-align: center;
+      padding: 2rem 2.5rem;
+      min-width: 340px;
+      max-width: 95vw;
+    }
+    .content h1 {
+      font-size: 3rem;
       color: #0ff;
       text-shadow: 0 0 15px #0ff;
       margin-bottom: 2rem;
-      letter-spacing: 2px;
     }
     .summary-list {
-      list-style: decimal inside;
-      background: rgba(10, 20, 30, 0.85);
-      border: 2px solid #0ff;
-      border-radius: 15px;
-      box-shadow: 0 0 32px #0ff77f7f;
-      padding: 2rem 2.5rem;
-      font-size: 1.4rem;
-      max-width: 450px;
+      text-align: left;
+      max-width: 600px;
       margin: 0 auto;
+      font-size: 1.2rem;
+      padding-left: 0;
+      list-style: none;
     }
-    .summary-list li {
-      margin-bottom: 1.5rem;
-      color: #fff;
-      text-shadow: 0 0 8px #0ff44a44;
-      letter-spacing: 1px;
+    .summary-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid #0ff4;
+      margin-bottom: 1rem;
     }
-    .cta {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      z-index: 2;
+    .summary-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
     }
-    .cta button {
-      display: inline-block;
-      padding: 0.7rem 1.7rem;
-      border: 2px solid #0ff;
+    .summary-item a {
       color: #0ff;
-      background: transparent;
-      border-radius: 10px;
-      font-size: 1.1rem;
+      text-decoration: underline;
+      font-size: 1.3rem;
       font-family: 'Orbitron', sans-serif;
-      transition: all 0.3s ease-in-out;
-      box-shadow: 0 0 10px #0ff44a99;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
+      transition: color 0.2s;
     }
-    .cta button:hover {
-      background: #0ff;
-      color: #000;
-      box-shadow: 0 0 20px #0ff;
+    .summary-item a:hover {
+      color: #fff;
     }
     @media (max-width: 600px) {
-      h1 { font-size: 1.2rem; }
-      .summary-list { font-size: 1rem; padding: 1rem 0.5rem;}
-      .cta button { font-size: 1rem; padding: 0.5rem 1rem;}
+      .content h1 { font-size: 2rem; }
+      .summary-list { font-size: 1rem; }
+      .content { margin-top: 60px; padding: 1rem 0.5rem;}
+      .menu-btn { font-size: 1rem; padding: 0.7rem 1.2rem;}
+      .menu-dropdown a { font-size: 1rem; padding: 0.8rem 1.2rem;}
     }
   </style>
 </head>
 <body>
   <img src="final.jpg" alt="Image de fond" class="background-image">
   <div class="overlay"></div>
-
-  <div class="cta">
-    <button onclick="window.location.href='index.html'">Retour à l'accueil</button>
-  </div>
-  <div class="container">
+  <!-- MENU -->
+  <nav class="menu-container" id="menuContainer">
+    <button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false">Menu</button>
+    <div class="menu-dropdown" id="menuDropdown" role="menu">
+      <a href="index.html">Accueil</a>
+      <a href="sommaire.html">Sommaire</a>
+      <a href="vocabulaire.html">Vocabulaire</a>
+      <a href="références.html">Références</a>
+    </div>
+  </nav>
+  <div class="content">
     <h1>Sommaire</h1>
-    <ol class="summary-list">
-      <li>Présentation du sujet et des thèses.</li>
-      <li>Mes motivations</li>
-      <li>Argumentation</li>
-      <li>Conclusion</li>
-      <li>Débat</li>
-    </ol>
+    <ul class="summary-list">
+      <li class="summary-item"><a href="index.html">Accueil</a></li>
+      <li class="summary-item"><a href="sommaire.html">Sommaire</a></li>
+      <li class="summary-item"><a href="vocabulaire.html">Vocabulaire</a></li>
+      <li class="summary-item"><a href="références.html">Références</a></li>
+    </ul>
   </div>
+  <script>
+    // Menu dropdown logic
+    const menuBtn = document.getElementById('menuBtn');
+    const menuContainer = document.getElementById('menuContainer');
+    document.addEventListener('click', function(e) {
+      if(menuContainer.contains(e.target)) {
+        menuContainer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', menuContainer.classList.contains('open'));
+      } else {
+        menuContainer.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    menuBtn.addEventListener('keydown', function(e) {
+      if(e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        menuContainer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', menuContainer.classList.contains('open'));
+      }
+    });
+  </script>
 </body>
 </html>
